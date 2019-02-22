@@ -1,0 +1,53 @@
+<p-toast></p-toast>
+<div class="login">
+  <div class="title">
+    <h3 (click)="selectedButton('signIn')" [ngClass]="{'highlighted' : selected === 'signIn'}">Connexion</h3>
+    <h3 (click)="selectedButton('signUp')" [ngClass]="{'highlighted' : selected === 'signUp'}">Créer un compte</h3>
+  </div>
+
+  <!-- SIGNIN FORM -->
+  <form (ngSubmit)="onSubmit()" [formGroup]="signInForm" *ngIf="selected === 'signIn'" novalidate>
+    <span class="ui-float-label">
+      <input formControlName="username" id="float-input" type="text" size="30" pInputText> 
+      <label for="float-input">Username</label>
+    </span>
+
+    <span class="ui-float-label">
+      <input formControlName="password" id="float-input" type="text" size="30" pInputText> 
+      <label for="float-input">Mot de passe</label>
+    </span>
+
+    <button type="submit" class="btn btn-success">Valider</button>
+  </form>
+
+  <!-- SIGNUP FORM -->
+  <form (ngSubmit)="onSubmit()" [formGroup]="signUpForm" *ngIf="selected === 'signUp'" novalidate>
+    <span class="ui-float-label">
+      <input formControlName="lastname" id="float-input" type="text" size="30" pInputText> 
+      <label for="float-input">Nom</label>
+    </span>
+
+    <span class="ui-float-label">
+      <input formControlName="firstname" id="float-input" type="text" size="30" pInputText> 
+      <label for="float-input">Prénom</label>
+    </span>
+
+    <span class="ui-float-label">
+      <input formControlName="username" id="float-input" type="text" size="30" pInputText> 
+      <label for="float-input">Pseudo</label>
+    </span>
+
+    <span class="ui-float-label">
+      <input formControlName="email" id="float-input" type="text" size="30" pInputText> 
+      <label for="float-input">Email</label>
+    </span>
+
+    <span class="ui-float-label">
+      <input formControlName="password" id="float-input" type="text" size="30" pInputText> 
+      <label for="float-input">Mot de passe</label>
+    </span>
+
+    <button type="submit" class="btn btn-success">Valider</button>
+  </form>
+  
+</div>
