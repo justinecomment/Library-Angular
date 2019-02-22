@@ -12,7 +12,7 @@ export class AuthenticationService {
 
   constructor(
     private http: HttpClient,
-    private router: Router) { }
+    private router: Router) {}
   
   signUp( dataForm ) {
     return this.http.post('http://192.168.1.13:8888/users/sign-up', dataForm );
@@ -28,6 +28,10 @@ export class AuthenticationService {
       error => {
         console.log('MY ERROR : ', error);
       });
+  }
+
+  logOut() {
+    localStorage.removeItem('token');
   }
 
   saveToken(token: string): any {
