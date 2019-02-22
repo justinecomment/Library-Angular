@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import {MessageService} from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { AuthenticatedUser } from 'src/app/model/user/authenticated-user';
 
 @Component({
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private messageService: MessageService,
-  ) { 
+  ) {
     this.signInForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required]
-    })
+    });
   }
 
   ngOnInit() {
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
         return;
       }
       this.authenticationService.signIn(this.signInForm.value);
-      if(this.authenticationService.isAuthenticated) {
+      if (this.authenticationService.isAuthenticated) {
         this.messageService.add({severity: 'success', summary: 'Service Message', detail: 'Via MessageService'});
       }
     }

@@ -1,18 +1,11 @@
-body, *{font-family: 'Arial', impact}
-
-.header{
-  background-color: #eef0f5;
-  font-family: Arial, sans-serif;
-  position: relative;
+* {
   background-image: url(../assets/img/fond.jpg);
-  height: 200px;
-  background-repeat: no-repeat;
   background-size: contain;
-
-  nav{
-
-  }
+  background-repeat: no-repeat;
+  height: 200px;
+  font-family: Arial, sans-serif;
 }
+
 .content{
   background-color: #eef0f5;
   min-height: 100vh;
