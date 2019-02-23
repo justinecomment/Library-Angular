@@ -9,13 +9,15 @@
   <form (ngSubmit)="onSubmit()" [formGroup]="signInForm" *ngIf="selected === 'signIn'" novalidate>
     <span class="ui-float-label">
       <input formControlName="username" id="float-input" type="text" size="30" pInputText> 
-      <label for="float-input">Username</label>
+      <label for="float-input">Pseudo</label>
     </span>
+    <p *ngIf="signInForm.controls['username'].invalid && submitted" class="errorMessage">Le pseudo est requis</p>
 
     <span class="ui-float-label">
       <input formControlName="password" id="float-input" type="text" size="30" pInputText> 
       <label for="float-input">Mot de passe</label>
     </span>
+    <p *ngIf="signInForm.controls['password'].invalid && submitted" class="errorMessage">Le mot de passe est requis</p>
 
     <button type="submit" class="btn btn-success">Valider</button>
   </form>

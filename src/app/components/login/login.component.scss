@@ -1,5 +1,10 @@
+$title : #9670bd;
+$buttonColor: #37cce5;
+$buttonColorHover: #27b7cf;
+
 .login{
   background-color: #fff;
+  border-radius: 5px;
   width: 500px;
   display: flex;
   flex-direction: column;
@@ -12,14 +17,13 @@
 
     h3{
       margin: 0px 10px;
-      color: #9670bd;
+      color: $title;
       cursor: pointer;
 
       &.highlighted {
-        border-bottom: 2px solid #9670bd;
+        border-bottom: 2px solid $title;
       }
     }
-
   }
 
   form{
@@ -33,12 +37,24 @@
     }
 
     button{
-      background-color: #37cce5;
+      background-color: $buttonColor;
       border-radius: 15px;
       border: none;
       color: #fff;
       padding: 7px 0px;
       margin-top: 20px;
+      cursor: pointer;
+
+      &:hover{
+        background-color: $buttonColorHover;
+      }
     }
+
+    .errorMessage{
+      margin-top: -14px;
+      font-size: 11px;
+      color: #df3636;
+    }
+
   }
 }

@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { MessageService } from 'primeng/api';
 import { AuthenticatedUser } from 'src/app/model/user/authenticated-user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,13 +18,22 @@ export class LoginComponent implements OnInit {
   submitted = false;
 
   constructor(
+    private router: Router,
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private messageService: MessageService,
   ) {
+    this.createForm();
+  }
+
+  ngOnInit() {
+    this.selected = 'signIn';
+  }
+
+  createForm() {
     this.signInForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required)
     });
 
     this.signUpForm = this.formBuilder.group({
@@ -35,10 +45,6 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.selected = 'signIn';
-  }
-
   private onSubmit() {
     this.submitted = true;
 
@@ -47,34 +53,32 @@ export class LoginComponent implements OnInit {
       if (this.signUpForm.invalid) {
         return;
       }
-      this.authenticationService.signUp(this.signUpForm.value)
-        .subscribe((response: AuthenticatedUser) => {
-          console.log(response);
-          this.messageService.add({severity: 'error', summary: 'Service Message', detail: 'Via MessageService'});
-          this.saveToken(response.token);
+      this.authenticationService.signUp(this.signUpForm.value).subscribe(
+        (response: AuthenticatedUser) => {
+          this.authenticationService.saveToken(response.token);
         },
         error => {
-          console.log(error);
-          this.messageService.add({severity: 'error', summary: 'ERROR', detail: 'Via MessageService'});
+          this.messageService.add({severity: 'error', summary: 'Erreur', detail: 'Veuillez vérifier que les champs sont valides'});
         });
       // SIGN IN FORM
     } else  {
       if (this.signInForm.invalid) {
         return;
       }
-      this.authenticationService.signIn(this.signInForm.value);
-      if (this.authenticationService.isAuthenticated) {
-        this.messageService.add({severity: 'success', summary: 'Service Message', detail: 'Via MessageService'});
-      }
+      this.authenticationService.signIn(this.signInForm.value).subscribe(
+        (response: AuthenticatedUser) => {
+          localStorage.setItem('username', response.username);
+          this.authenticationService.saveToken(response.token);
+          this.router.navigate(['']);
+        },
+        error => {
+          this.messageService.add({severity: 'error', summary: 'Erreur', detail: 'Mauvais utilisateur'});
+        });
     }
   }
 
   private selectedButton(e) {
     e === 'signIn' ? this.selected = 'signIn' : this.selected = 'signUp';
-  }
-
-  private saveToken(token: string) {
-    this.authenticationService.saveToken(token);
   }
 
 }
