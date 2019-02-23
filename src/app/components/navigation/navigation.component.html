@@ -1,4 +1,4 @@
-<nav style="position: absolute; width: 95%;">
+<nav style="position: absolute; width: 95%;" *ngIf="isAuthenticated()">
   <a href="books">Livres</a>
   <a href="authors">Auteurs</a>
 
@@ -8,7 +8,5 @@
     [options]="user" 
     [(ngModel)]="userDropdown"></p-dropdown>
   
-  <!-- <i class="fas fa-user"></i> -->
-
-  <button ng-click="logOut">Deconnexion</button>
+  <button (click)="logOut()">Deconnexion</button>
 </nav>

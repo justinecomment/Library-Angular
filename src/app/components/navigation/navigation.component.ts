@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {SelectItem} from 'primeng/api';
+import { SelectItem } from 'primeng/api';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
@@ -12,12 +12,14 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class NavigationComponent implements OnInit {
   user: SelectItem[];
   userDropdown: string;
+  username: string;
 
   constructor(
       private authenticationService: AuthenticationService,
     ) {
+    this.username = localStorage.getItem('username');
     this.user = [
-      {label: 'Justine', value: null},
+      {label:  `${this.username}` , value: null},
       {label: 'Dashboard', value: { id: 1, name: 'dashboard', code: 'dashboard'}},
       {label: 'Mes livres', value: { id: 2, name: 'book', code: 'book'}},
       {label: 'Mes collections', value: { id: 3, name: 'collections', code: 'collections'}},
@@ -30,6 +32,10 @@ export class NavigationComponent implements OnInit {
 
   logOut() {
     this.authenticationService.logOut();
+  }
+
+  isAuthenticated(): boolean {
+    return this.authenticationService.isAuthenticated();
   }
 
 }
