@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BooksService } from 'src/app/services/books/books.service';
-
+import { Book } from 'src/app/model/entity/book';
 @Component({
   selector: 'app-books',
   templateUrl: './books.component.html',
@@ -9,10 +9,10 @@ import { BooksService } from 'src/app/services/books/books.service';
 export class BooksComponent implements OnInit {
   cars1: [];
   cols: any[];
-  books: [];
+  books: Array<Book>;
 
-  constructor( 
-    private booksService : BooksService
+  constructor(
+    private booksService: BooksService
   ) {
     this.cols = [
       { field: 'title', header: 'Titre' },
@@ -30,17 +30,16 @@ export class BooksComponent implements OnInit {
     console.log('ajouter un livre');
   }
 
-  getBooks(){
-    this.booksService.getBooks()
-    .subscribe(
-      response => {
+  getBooks() {
+    this.booksService.getBooks().subscribe(
+      (response: Array<Book>) => {
         this.books = response;
         console.log(this.books);
       },
       error => {
-        console.log('ERREUR: ', error)
+        console.log('ERREUR: ', error);
       }
-    )
+    );
   }
 
 }

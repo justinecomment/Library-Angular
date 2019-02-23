@@ -12,20 +12,20 @@ export class BooksService {
     private http: HttpClient,
   ) { }
 
-  getBooks() {
+  public getBooks() {
     this.getToken();
 
     return this.http.get('http://192.168.1.13:8888/book/all', {
       headers: {
-        'Authorization': this.token
+        authorization: this.token
       }
     });
   }
 
-  getToken() {
-    if(!localStorage.getItem('token')){
+  private getToken() {
+    if ( !localStorage.getItem('token')) {
      return;
-    } else{
+    } else {
       return this.token = localStorage.getItem('token');
     }
   }

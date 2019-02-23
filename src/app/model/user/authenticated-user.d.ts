@@ -1,5 +1,4 @@
 export interface AuthenticatedUser {
-  name: string,
-  pseudo: string,
+  username: string,
   token: string,
 }
