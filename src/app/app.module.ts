@@ -17,6 +17,8 @@ import { HomeComponent } from 'src/app/components/home/home.component';
 import { NavigationComponent } from 'src/app/components/navigation/navigation.component';
 import { BooksComponent } from 'src/app/components/books/books.component';
 import { AuthorsComponent } from 'src/app/components/authors/authors.component';
+import { AuthRequestOptionsService } from './services/security/auth-request-options.service';
+import { BaseRequestOptions } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,13 @@ import { AuthorsComponent } from 'src/app/components/authors/authors.component';
     TooltipModule,
     TableModule
   ],
-  providers: [MessageService],
+  providers: [
+    MessageService,
+    {
+      provide: BaseRequestOptions,
+      useClass: AuthRequestOptionsService
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

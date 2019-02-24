@@ -1,32 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
+import { HttpService } from '../common/http.service';
+import { Book } from 'src/app/model/entity/book';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BooksService {
-  token: string;
-
   constructor(
-    private http: HttpClient,
+    private httpService: HttpService
   ) { }
 
-  public getBooks() {
-    this.getToken();
-
-    return this.http.get('http://192.168.1.13:8888/book/all', {
-      headers: {
-        authorization: this.token
-      }
-    });
-  }
-
-  private getToken() {
-    if ( !localStorage.getItem('token')) {
-     return;
-    } else {
-      return this.token = localStorage.getItem('token');
-    }
+  getBooks(): Observable<Array<Book>> {
+    return this.httpService.get('http://192.168.1.13:8888/book/all');
   }
 }

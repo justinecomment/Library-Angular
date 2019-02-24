@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
       }
       this.authenticationService.signUp(this.signUpForm.value).subscribe(
         (response: AuthenticatedUser) => {
-          this.authenticationService.saveToken(response.token);
+          this.authenticationService.setToken(response.token, response.username);
         },
         error => {
           this.messageService.add({severity: 'error', summary: 'Erreur', detail: 'Veuillez vérifier que les champs sont valides'});
@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
       this.authenticationService.signIn(this.signInForm.value).subscribe(
         (response: AuthenticatedUser) => {
           localStorage.setItem('username', response.username);
-          this.authenticationService.saveToken(response.token);
+          this.authenticationService.setToken(response.token, response.username);
           this.router.navigate(['']);
         },
         error => {
