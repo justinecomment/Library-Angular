@@ -1,37 +1,37 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthenticationService } from '../authentication.service';
-
-
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class HttpService {
+export class HttpService implements HttpInterceptor {
+  
+  constructor(
+    private http: HttpClient,
+    private auth: AuthenticationService) { }
 
+  intercept( request: HttpRequest<any>, next: HttpHandler ): Observable<HttpEvent<any>> {
 
-  authorizationConfigured: string = null;
-  constructor(private http: HttpClient,
-    private auth: AuthenticationService) {
-    this.authorizationConfigured = this.getToken();
-   }
-
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'authorization': this.authorizationConfigured
-    })
+    request = request.clone({
+      setHeaders: {
+        'Content-Type': 'application/json',
+        'authorization': `${this.auth.getToken()}`
+      }
+    });
+    return next.handle(request);
   }
 
-  // TODO : use http interceptor
 
   public get(url: string): any {
     return this.http.get(url);
   }
 
   public post(url: string, data: any): any {
-    return this.http.post(url, data, this.httpOptions);
+    return this.http.post(url, data);
   }
 
   private getToken() {

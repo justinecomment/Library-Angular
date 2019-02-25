@@ -9,20 +9,11 @@ import { Observable } from 'rxjs';
   styleUrls: ['./books.component.scss']
 })
 export class BooksComponent implements OnInit {
-  cars1: [];
-  cols: any[];
   books: Array<Book>;
 
   constructor(
     private booksService: BooksService
-  ) {
-    this.cols = [
-      { field: 'title', header: 'Titre' },
-      { field: 'category', header: 'Categorie' },
-      { field: 'author', header: 'Auteur' },
-      { field: 'style', header: 'Style' }
-    ];
-  }
+  ) { }
 
   ngOnInit() {
     this.getBooks();
@@ -35,7 +26,6 @@ export class BooksComponent implements OnInit {
   getBooks() {
     this.booksService.getBooks().subscribe(
       response => {
-        console.log(response);
         if (response !== null) {
           this.books = response;
         }

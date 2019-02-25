@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Router} from '@angular/router';
-import { AuthenticatedUser } from '../model/user/authenticated-user';
 import * as jwt_decode from 'jwt-decode';
 
 @Injectable({
@@ -36,14 +34,11 @@ export class AuthenticationService {
   }
 
   isAuthenticated(): boolean {
-    console.log('Check for auth');
     const token = this.getToken();
     if (token === undefined) {
-      console.log('Token undefined');
       return false;
     }
     if (this.isTokenExpired(token) ) {
-      console.log('Token expired');
       localStorage.clear();
       return false;
     }
@@ -61,15 +56,11 @@ export class AuthenticationService {
   }
 
   isTokenExpired(token?: string): boolean {
-    console.log('Check for expired token');
-    
     if (!token) {
-      console.log('No token passed as parameter');
       token = this.getToken();
     }
 
     if (!token) {
-      console.log('No token found or provided.');
       return true;
     }
     const date = this.getTokenExpirationDate(token);
