@@ -7,11 +7,12 @@ import {ToastModule} from 'primeng/toast';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { MessageService } from 'primeng/api';
-import {DropdownModule} from 'primeng/dropdown';
-import {TooltipModule} from 'primeng/tooltip';
-import {TableModule} from 'primeng/table';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { DropdownModule } from 'primeng/dropdown';
+import { TooltipModule } from 'primeng/tooltip';
+import { TableModule } from 'primeng/table';
 import { HttpService } from './services/common/http.service';
+import { MatTableModule, MatSortModule, MatPaginatorModule } from '@angular/material';
+import 'hammerjs';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from 'src/app/components/login/login.component';
@@ -27,7 +28,7 @@ import { AuthorsComponent } from 'src/app/components/authors/authors.component';
     HomeComponent,
     NavigationComponent,
     BooksComponent,
-    AuthorsComponent,
+    AuthorsComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +42,10 @@ import { AuthorsComponent } from 'src/app/components/authors/authors.component';
     DropdownModule,
     TooltipModule,
     TableModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   providers: [
     MessageService,
@@ -51,6 +55,8 @@ import { AuthorsComponent } from 'src/app/components/authors/authors.component';
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

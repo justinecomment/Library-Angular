@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BooksService } from 'src/app/services/books/books.service';
 import { Book } from 'src/app/model/entity/book';
-import { Observable } from 'rxjs';
+import {MatSort, MatTableDataSource, MatPaginator} from '@angular/material';
 
 @Component({
   selector: 'app-books',
@@ -9,7 +9,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./books.component.scss']
 })
 export class BooksComponent implements OnInit {
-  books: Array<Book>;
+  displayedColumns: string[] = ['isbn', 'title', 'alternateTitle', 'year', 'author', 'category', 'style'];
+  dataSource;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private booksService: BooksService
@@ -25,16 +28,16 @@ export class BooksComponent implements OnInit {
 
   getBooks() {
     this.booksService.getBooks().subscribe(
-      response => {
+      (response: Array<Book>) => {
         if (response !== null) {
-          this.books = response;
+          this.dataSource = new MatTableDataSource(response);
+          this.dataSource.paginator = this.paginator;
         }
-        console.log(this.books);
+        console.log(this.dataSource.data);
       },
       error => {
         console.log('ERREUR: ', error);
       }
     );
   }
-
 }
