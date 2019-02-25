@@ -11,7 +11,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TooltipModule } from 'primeng/tooltip';
 import { TableModule } from 'primeng/table';
 import { HttpService } from './services/common/http.service';
-import { MatTableModule, MatSortModule, MatPaginatorModule } from '@angular/material';
+import { MatTableModule, MatSortModule, MatPaginatorModule, MatDialogModule } from '@angular/material';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
@@ -20,6 +20,7 @@ import { HomeComponent } from 'src/app/components/home/home.component';
 import { NavigationComponent } from 'src/app/components/navigation/navigation.component';
 import { BooksComponent } from 'src/app/components/books/books.component';
 import { AuthorsComponent } from 'src/app/components/authors/authors.component';
+import { AddBookComponent } from 'src/app/components/add-book/add-book.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AuthorsComponent } from 'src/app/components/authors/authors.component';
     HomeComponent,
     NavigationComponent,
     BooksComponent,
-    AuthorsComponent
+    AuthorsComponent,
+    AddBookComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,8 @@ import { AuthorsComponent } from 'src/app/components/authors/authors.component';
     BrowserAnimationsModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule
   ],
   providers: [
     MessageService,
@@ -55,6 +58,7 @@ import { AuthorsComponent } from 'src/app/components/authors/authors.component';
       multi: true
     }
   ],
+  entryComponents: [AddBookComponent],
   bootstrap: [
     AppComponent
   ]

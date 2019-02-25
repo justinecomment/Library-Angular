@@ -15,19 +15,23 @@ export class NavigationComponent implements OnInit {
   username: string;
 
   constructor(
-      private authenticationService: AuthenticationService,
-    ) {
-    this.username = localStorage.getItem('username');
-    this.user = [
-      {label:  `${this.username}` , value: null},
-      {label: 'Dashboard', value: { id: 1, name: 'dashboard', code: 'dashboard'}},
-      {label: 'Mes livres', value: { id: 2, name: 'book', code: 'book'}},
-      {label: 'Mes collections', value: { id: 3, name: 'collections', code: 'collections'}},
-      {label: 'Mes amis', value: { id: 4, name: 'friends', code: 'friends'}},
-    ];
-  }
+    private authenticationService: AuthenticationService,
+  ) { }
 
   ngOnInit() {
+  }
+
+  ngDoCheck(): void {
+    if (this.isAuthenticated()) {
+      this.user = [
+        { label: localStorage.getItem('username'), value: null },
+        { label: 'Dashboard', value: { id: 1, name: 'dashboard', code: 'dashboard' } },
+        { label: 'Mes livres', value: { id: 2, name: 'book', code: 'book' } },
+        { label: 'Mes collections', value: { id: 3, name: 'collections', code: 'collections' } },
+        { label: 'Mes amis', value: { id: 4, name: 'friends', code: 'friends' } },
+      ];
+    }
+
   }
 
   logOut() {

@@ -1,0 +1,46 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="addBookForm" novalidate>
+    
+  <span class="ui-float-label">
+      <input formControlName="title" id="float-input" type="text"  pInputText> 
+      <label for="float-input">Titre</label>
+    </span>
+    <p *ngIf="addBookForm.controls['title'].invalid && submitted" class="errorMessage">Le Titre est requis</p>
+
+    <span class="ui-float-label">
+      <input formControlName="alternateTitle" id="float-input" type="text"  pInputText> 
+      <label for="float-input">Titre alternatif</label>
+    </span>
+    <p *ngIf="addBookForm.controls['alternateTitle'].invalid && submitted" class="errorMessage">LeTitre Alternatif est requis</p>
+
+    <span class="ui-float-label">
+      <input formControlName="year" id="float-input" type="text"  pInputText> 
+      <label for="float-input">Année</label>
+    </span>
+    <p *ngIf="addBookForm.controls['year'].invalid && submitted" class="errorMessage">L'année est requise</p>
+  
+    <span class="ui-float-label">
+      <input formControlName="isbn" id="float-input" type="text"  pInputText> 
+      <label for="float-input">ISBN</label>
+    </span>
+    <p *ngIf="addBookForm.controls['isbn'].invalid && submitted" class="errorMessage">L'isbn' est requis</p>
+
+    <span class="ui-float-label">
+      <input formControlName="authorId" id="float-input" type="text"  pInputText> 
+      <label for="float-input">Auteur</label>
+    </span>
+    <p *ngIf="addBookForm.controls['authorId'].invalid && submitted" class="errorMessage">L'auteur est requis</p>
+
+    <span class="ui-float-label">
+      <input formControlName="categoryId" id="float-input" type="text"  pInputText> 
+      <label for="float-input">Catégorie</label>
+    </span>
+    <p *ngIf="addBookForm.controls['categoryId'].invalid && submitted" class="errorMessage">Le catégorie est requise</p>
+  
+    <span class="ui-float-label">
+      <input formArrayName="styleIds" id="float-input" type="text"  pInputText> 
+      <label for="float-input">Style</label>
+    </span>git 
+    <p *ngIf="addBookForm.controls['styleIds'].invalid && submitted" class="errorMessage">Le style est requis</p>
+    
+    <button type="submit" class="btn btn-success">Valider</button>
+  </form>

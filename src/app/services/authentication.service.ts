@@ -38,6 +38,7 @@ export class AuthenticationService {
     if (token === undefined) {
       return false;
     }
+
     if (this.isTokenExpired(token) ) {
       localStorage.clear();
       return false;
@@ -50,6 +51,7 @@ export class AuthenticationService {
     if (decoded.exp === undefined) {
       return null;
     }
+
     const date = new Date();
     date.setUTCSeconds(decoded.exp);
     return date;
@@ -63,6 +65,7 @@ export class AuthenticationService {
     if (!token) {
       return true;
     }
+
     const date = this.getTokenExpirationDate(token);
     if (date === undefined) {
       return false;

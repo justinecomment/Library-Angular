@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BooksService } from 'src/app/services/books/books.service';
 import { Book } from 'src/app/model/entity/book';
-import {MatSort, MatTableDataSource, MatPaginator} from '@angular/material';
+import {MatSort, MatTableDataSource, MatPaginator, MatDialog} from '@angular/material';
+import { AddBookComponent } from 'src/app/components/add-book/add-book.component';
 
 @Component({
   selector: 'app-books',
@@ -13,9 +14,12 @@ export class BooksComponent implements OnInit {
   dataSource;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  animal: string;
+  name: string;
 
   constructor(
-    private booksService: BooksService
+    private booksService: BooksService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -23,11 +27,18 @@ export class BooksComponent implements OnInit {
   }
 
   addBook() {
-    console.log('ajouter un livre');
+    const dialogRef = this.dialog.open(AddBookComponent, {
+      width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      console.log(dialogRef.componentInstance.addBookForm.value);
+    });
   }
 
   getBooks() {
-    this.booksService.getBooks().subscribe(
+    this.booksService.get().subscribe(
       (response: Array<Book>) => {
         if (response !== null) {
           this.dataSource = new MatTableDataSource(response);

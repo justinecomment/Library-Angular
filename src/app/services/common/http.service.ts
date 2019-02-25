@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 
 export class HttpService implements HttpInterceptor {
-  
+
   constructor(
     private http: HttpClient,
     private auth: AuthenticationService) { }
